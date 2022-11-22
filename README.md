@@ -44,15 +44,17 @@
 
 ## Uso Basico
 
-**Publicamos el stream con ffmpeg en el contenedor del SERVIDOR**
+**Publicamos el stream con ffmpeg desde NUESTRO EQUIPO ANFITRION**
 
     $ ffmpeg -re -stream_loop -1 -i ARCHIVO.mp4 -c copy -f rtsp rtsp://localhost:8554/mystream
 
-Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con el comando `$ docker cp ARCHIVO.mp4 CODIGO_CONTENEDOR_SERVER` 
+Al estar conectado a la network **host**, el stream va a transmitir en `rtsp://localhost:8554/mystream` en los tres dispositivos (maquina anfitriona, cliente y servidor)
+
+Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con el comando `$ docker cp ARCHIVO.mp4 CODIGO_CONTENEDOR_SERVER` o estar en la carpeta del archivo y pasarlo directamente con el comando de arriba (RECOMENDADO) 
 
 **Desde el HOST corremos vlc con el streaming**
 
-    $ vlc rtsp://ip_servidor:8554/mystream
+    $ vlc rtsp://localhost:8554/mystream
 
 ## Actualizaciones
 
