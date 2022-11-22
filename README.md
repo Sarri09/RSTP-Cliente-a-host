@@ -58,6 +58,19 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
 
 ## Actualizaciones
 
-**Interceptar paquetes con Man In The Middle**
+## Interceptacion y manipulacion de trafico
 
+**Para las siguientes funciones, primero debemos descargar la imagen y correr el contenedor**
+    
+    $ git clone https://github.com/Sarri09/RSTP-Cliente-a-host.git
+    $ cd RSTP-Cliente-a-host
+    $ make build
+    $ make run
+    
+**Interceptar paquetes con Man In The Middle**
+    
+    $ python3 MitM.py
+    
 **Net Filter**
+    
+    $ python3 netfilter.py
