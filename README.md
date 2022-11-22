@@ -34,7 +34,6 @@
 **Correr el cliente**
 
     $ docker \
-    --network \
     run \
     -d \
     -v "$(pwd)":/data \
