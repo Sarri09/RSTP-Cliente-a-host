@@ -25,7 +25,7 @@
 
 **Correr el servidor**
 
-    $ docker run --rm -it --network=host aler9/rtsp-simple-server
+    $ docker run --rm -it -e RTSP_PROTOCOLS=tcp -p 8554:8554 -p 1935:1935 -p 8888:8888 aler9/rtsp-simple-server
 
 **Descargar imagen del cliente** 
 
@@ -54,7 +54,7 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
 
 **Desde el HOST corremos vlc con el streaming**
 
-    $ vlc rtsp://localhost:8554/mystream
+    $ vlc rtsp://ip_servidor:8554/mystream
 
 ## Actualizaciones
 
