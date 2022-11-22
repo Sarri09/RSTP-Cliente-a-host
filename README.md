@@ -21,19 +21,19 @@
 
 **Descargar imagen del servidor**
 
-    $ docker pull aler9/rtsp-simple-server
+    docker pull aler9/rtsp-simple-server
 
 **Correr el servidor**
 
-    $ docker run --rm -it -e RTSP_PROTOCOLS=tcp -p 8554:8554 -p 1935:1935 -p 8888:8888 aler9/rtsp-simple-server
+    docker run --rm -it -e RTSP_PROTOCOLS=tcp -p 8554:8554 -p 1935:1935 -p 8888:8888 aler9/rtsp-simple-server
 
 **Descargar imagen del cliente** 
 
-    $ docker pull galexrt/vlc
+    docker pull galexrt/vlc
 
 **Correr el cliente**
 
-    $ docker \
+    docker \
     run \
     -d \
     -v "$(pwd)":/data \
@@ -46,7 +46,7 @@
 
 **Publicamos el stream con ffmpeg desde NUESTRO EQUIPO ANFITRION**
 
-    $ ffmpeg -re -stream_loop -1 -i ARCHIVO.mp4 -c copy -f rtsp rtsp://localhost:8554/mystream
+    ffmpeg -re -stream_loop -1 -i ARCHIVO.mp4 -c copy -f rtsp rtsp://localhost:8554/mystream
 
 Al estar conectado a la network **host**, el stream va a transmitir en `rtsp://localhost:8554/mystream` en los tres dispositivos (maquina anfitriona, cliente y servidor)
 
@@ -54,7 +54,7 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
 
 **Desde el HOST corremos vlc con el streaming**
 
-    $ vlc rtsp://ip_servidor:8554/mystream
+    vlc rtsp://ip_servidor:8554/mystream
 
 ## Actualizaciones
 
@@ -62,18 +62,18 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
 
 **Para las siguientes funciones, primero debemos descargar la imagen y correr el contenedor**
     
-    $ git clone https://github.com/Sarri09/RSTP-Cliente-a-host.git
-    $ cd RSTP-Cliente-a-host
+    git clone https://github.com/Sarri09/RSTP-Cliente-a-host.git
+    cd RSTP-Cliente-a-host
     
 **Corremos el contenedor con**
 
-    $ make build
-    $ make run
+    make build
+    make run
     
 **Interceptar paquetes con Man In The Middle**
     
-    $ python3 MitM.py
+    Python3 MitM.py
     
 **NetFilter**
     
-    $ python3 netfilter.py
+    python3 netfilter.py
