@@ -64,6 +64,9 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
     
     $ git clone https://github.com/Sarri09/RSTP-Cliente-a-host.git
     $ cd RSTP-Cliente-a-host
+    
+**Corremos el contenedor con**
+
     $ make build
     $ make run
     
@@ -71,6 +74,6 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
     
     $ python3 MitM.py
     
-**Net Filter**
+**NetFilter**
     
     $ python3 netfilter.py
