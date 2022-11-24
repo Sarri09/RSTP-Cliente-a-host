@@ -58,7 +58,7 @@ Se puede cargar un archivo desde la maquina anfitriona a el docker servidor con 
 
 ## Actualizaciones
 
-## Interceptacion y manipulacion de trafico
+**Interceptacion y manipulacion de trafico**
 
 **Para las siguientes funciones, primero debemos descargar la imagen y correr el contenedor**
     
