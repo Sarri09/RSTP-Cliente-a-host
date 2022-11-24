@@ -3,7 +3,7 @@
 
 ## Table of Contents
 * [Informacion general](#informacion-general)
-* [Technologias](#technologias)
+* [Tecnologias](#tecnologias)
 * [Instalacion](#instalacion)
 * [Uso Basico](#uso-basico)
 * [Actualizaciones](#actualizaciones)
@@ -11,7 +11,7 @@
 ## Informacion general
 - El protocolo RTSP nos permite generar trafico necesario para transmitir via streaming, en este proyecto se replicará esta accion entre dos contenedores y luego se analizará el trafico para entender a fondo esta comunicacion.
 
-## Technologias
+## Tecnologias
 - Docker 
 - VLC
 - Python3
