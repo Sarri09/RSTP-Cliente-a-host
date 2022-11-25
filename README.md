@@ -1,7 +1,7 @@
 ## STREAMING SERVIDOR CLIENTE CON RTSP
 - En este proyecto se establecerá una conexion a traves del protocolo RTSP entre un contenedor cliente con uno servidor.
 
-## Table of Contents
+## Tabla de contenidos
 * [Informacion general](#informacion-general)
 * [Tecnologias](#tecnologias)
 * [Instalacion](#instalacion)
