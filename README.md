@@ -29,7 +29,7 @@
 
 **Descargar imagen del cliente** 
 
-    docker pull galexrt/vlc
+    docker pull quay.io/galexrt/vlc:latest
 
 **Correr el cliente**
 
