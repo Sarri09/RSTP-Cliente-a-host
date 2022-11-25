@@ -23,7 +23,7 @@ except KeyboardInterrupt:
     sys.exit(1)
 
 print("\n[*] Habilitando el envio de IP...\n")
-os.system("echo1 > /proc/sys/net.ipv4/ip_forward")
+os.system("echo1 > /proc/sys/net/ipv4/ip_forward")
 
 ## OBTENEMOS LA MAC DE LA VICTIMA CON UN ARP REQUEST
 def get_mac(IP):
