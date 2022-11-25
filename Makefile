@@ -4,4 +4,4 @@ build:
 	docker build -t ${USER}/${DOCKER_IMAGE_NAME} .
 
 run:
-	docker run -v -it ${USER}/${DOCKER_IMAGE_NAME}
+	docker run --volume "$(pwd)":/root/ -it ${USER}/${DOCKER_IMAGE_NAME}
