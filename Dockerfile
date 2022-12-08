@@ -2,9 +2,6 @@ FROM ubuntu:latest
 
 RUN apt-get update
 RUN apt-get install -y tzdata wget
-# RUN apt-get -y install python3
-# RUN apt-get -y install python3-pip
-# RUN apt-get -y install python3-scapy
 RUN apt-get install -y libcurl4 openssl gnupg unzip zip curl nano git texlive tcpdump
 RUN apt-get install -y python3.11 python3-pip
 RUN apt-get install -y iptables net-tools inetutils-ping
